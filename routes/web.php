@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\LightconeController;
+use App\Http\Controllers\BossGuideController;
 use App\Http\Controllers\RelicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\GuideController;
+use App\Http\Controllers\PartyController;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\EndgameContent;
 
 // Home atau redirect
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -21,6 +25,20 @@ Route::get('/lightcones/{lightcone}', [LightconeController::class, 'show'])->nam
 
 // Relics
 Route::get('/relics', [RelicController::class, 'index'])->name('relics.index');
+
+// Party
+Route::get('/parties', [PartyController::class, 'index'])->name('parties.index');
+Route::get('/parties/character/{character}', [PartyController::class, 'characterParties'])->name('parties.character');
+
+// Endgame Contents
+// Route::get('/endgame', function () {
+//     $contents = EndgameContent::with('stages')->get()->groupBy('type');
+//     return view('endgame', compact('contents'));
+// })->name('endgame');
+
+// Boss Guides
+Route::get('/boss-guides', [BossGuideController::class, 'index'])->name('boss-guides.index');
+Route::get('/boss-guides/{bossGuide}', [BossGuideController::class, 'show'])->name('boss-guides.show');
 
 // Tips&Builds
 Route::prefix('builds')->name('builds.')->group(function () {

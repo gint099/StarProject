@@ -43,7 +43,7 @@
         </div>
 
         <!-- Reset Button -->
-        <a href="{{ route('characters.index') }}" class="mt-2 text-sm text-gray-400 hover:text-white">Reset Filter</a>
+        <a href="{{ route('builds.index') }}" class="mt-2 text-sm text-gray-400 hover:text-white">Reset Filter</a>
     </div>
 </form>
 

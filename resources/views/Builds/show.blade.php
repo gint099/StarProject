@@ -73,7 +73,7 @@
                                 @if($lightcone->image)
                                     <img src="{{ asset('storage/' . $lightcone->image) }}"
                                          alt="{{ $lightcone->name }}"
-                                         class="w-full h-50 object-cover rounded-t-md" />
+                                         class="w-full h-full object-cover rounded-t-md" />
                                     <div class="bg-black/70 text-white text-center py-1 px-2">
                                         <h2 class="text-sm font-semibold leading-tight truncate">{{ $lightcone->name }}</h2>
                                     </div>
@@ -102,9 +102,9 @@
                         <img src="{{ asset('storage/assets/relics/slot/' . $build->getSlotImage($mainStat['position'])) }}"
                             alt="{{ $mainStat['label'] }}"
                             class="w-14 h-14 rounded-full">
-                        <img src="{{ asset('storage/' . $build->getMainStatImage($mainStat['position'])) }}"
+                        {{-- <img src="{{ asset('storage/' . $build->getMainStatImage($mainStat['position'])) }}"
                             alt="{{ $mainStat['value'] }}"
-                            class="w-14 h-14 rounded-full">
+                            class="w-14 h-14 rounded-full"> --}}
                         <span class="text-white font-semibold">{{ $mainStat['value'] }}</span>
                     </div>
                     @endforeach
@@ -194,11 +194,11 @@
                 @foreach($build->synergy_characters as $character)
                     <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center hover:scale-105 transition">
                         <a href="{{ route('characters.show', $character->id) }}" class="block">
-                        @if($character->profile_image)
-                            <img src="{{ asset("storage/" . $character->profile_image) }}"
-                                 alt="{{ $character->name }}"
-                                 class="w-20 h-20 rounded-full object-cover">
-                        @endif
+                            @if($character->profile_image)
+                                <img src="{{ asset("storage/" . $character->profile_image) }}"
+                                    alt="{{ $character->name }}"
+                                    class="w-20 h-20 rounded-full object-cover">
+                            @endif
                         </a>
                     </div>
                 @endforeach

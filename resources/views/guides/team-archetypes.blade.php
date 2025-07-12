@@ -173,25 +173,26 @@
                                     <h3 class="text-{{ $archetype['color'] }}-300 font-bold text-lg">Contoh Karakter</h3>
                                 </div>
 
-                                @forelse ($archetype['characters'] as $char)
+                                @if ($archetype['characters']->count() > 0)
                                     <div class="grid grid-cols-3 gap-3">
-                                        @foreach ($archetype['characters'] as $char)
+                                        @foreach ($archetype['characters'] as $character)
                                             <div class="relative">
-                                                <div class="aspect-square rounded-xl overflow-hidden border-2 border-{{ $archetype['color'] }}-400/30">
-                                                    <img src="{{ asset($char->profile_image) }}"
-                                                         alt="{{ $char->name }}"
-                                                         title="{{ $char->name }}"
-                                                         class="w-full h-full object-cover">
+                                                <div class="aspect-square rounded-xl overflow-hidden {{ $archetype['color'] }}-400/30">
+                                                    <img src="{{ asset('storage/' . $character->profile_image) }}"
+                                                        alt="{{ $character->name }}"
+                                                        title="{{ $character->name }}"
+                                                        class="w-full h-full object-cover rounded-full border-2 border-slate-900 hover:scale-105 transition-transform duration-300">
                                                 </div>
+                                                <div class="text-xs text-white mt-1 truncate w-20 flex justify-center">{{ $character->name }}</div>
                                             </div>
                                         @endforeach
                                     </div>
-                                @empty
+                                @else
                                     <div class="text-center py-8">
                                         <div class="text-gray-400 text-sm mb-2">📋</div>
                                         <p class="text-gray-400 text-sm">Belum ada karakter terdaftar.</p>
                                     </div>
-                                @endforelse
+                                @endif
                             </div>
                         </div>
                     </div>

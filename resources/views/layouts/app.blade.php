@@ -78,8 +78,15 @@
                             <a href="{{ route('builds.index') }}" class="block px-3 py-2 hover:bg-yellow-500 text-sm lg:text-base">Build</a>
                         </li>
                         <li>
+                            <a href="{{ route('boss-guides.index') }}" class="block px-3 py-2 hover:bg-yellow-500 text-sm lg:text-base">Boss Guide</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('parties.index') }}" class="block px-3 py-2 hover:bg-yellow-500 text-sm lg:text-base">Party</a>
+                        </li>
+                        <li>
                             <a href="{{ route('faq.index') }}" class="block px-3 py-2 hover:bg-yellow-500 text-sm lg:text-base">FAQ</a>
                         </li>
+
                     </ul>
                 </div>
 
@@ -129,6 +136,8 @@
                                     <a href="{{ route('lightcones.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">Lightcones</a>
                                     <a href="{{ route('relics.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">Relics</a>
                                     <a href="{{ route('builds.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">Build</a>
+                                    <a href="{{ route('boss-guides.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">Boss Guide</a>
+                                    <a href="{{ route('parties.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">Party</a>
                                     <a href="{{ route('faq.index') }}" class="block px-8 py-2 text-white hover:bg-yellow-500">FAQ</a>
                                 </div>
                             </div>

@@ -109,8 +109,7 @@ class CharacterResource extends Resource
                 ->label('Summon Image'),
 
             TextInput::make('summon_name')
-                ->label('Summon Name')
-                ->required(),
+                ->label('Summon Name'),
 
                 Repeater::make('summons')
                 ->label('Summons')

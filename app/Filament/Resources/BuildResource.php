@@ -157,8 +157,7 @@ class BuildResource extends Resource
 
                                 Forms\Components\TextInput::make('value')
                                     ->numeric()
-                                    ->step(0.1)
-                                    ->required(),
+                                    ->step(0.1),
                             ])
                             ->columns(2)
                             ->addActionLabel('Add Substat')

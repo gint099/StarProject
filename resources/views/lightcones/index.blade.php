@@ -37,13 +37,12 @@
 </form>
 
 {{-- Lightcone Cards --}}
-<div class="w-full flex justify-center">
-    <div class="w-full flex flex-wrap justify-center gap-4">
-        @forelse($lightcones as $lightcone)
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Grid dengan ukuran card yang konsisten -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 justify-items-center">
+        @foreach($lightcones as $lightcone)
             @include('components.lightcone-card', ['lightcone' => $lightcone])
-        @empty
-            <p class="text-center text-gray-400">No lightcones found.</p>
-        @endforelse
+        @endforeach
     </div>
 </div>
 

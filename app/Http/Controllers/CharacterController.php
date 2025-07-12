@@ -25,7 +25,11 @@ class CharacterController extends Controller
             $query->where('rarity', $request->rarity);
         }
 
-        $characters = $query->get();
+        // Sorting: Rarity 5 dulu, kemudian rarity 4, lalu berdasarkan nama
+        $characters = $query->orderBy('rarity', 'desc')
+                          ->orderBy('name', 'asc')
+                          ->get();
+
         return view('characters.index', compact('characters'));
     }
 

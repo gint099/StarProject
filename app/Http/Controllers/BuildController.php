@@ -11,10 +11,57 @@ use Illuminate\Http\Request;
 
 class BuildController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $builds = Build::with(['character'])->latest()->get();
-        $characters = Character::whereIn('id', Build::pluck('character_id'))->get();
+        $query = Build::with(['character']);
+
+        // Filter berdasarkan path karakter
+        if ($request->filled('path')) {
+            $query->whereHas('character', function ($q) use ($request) {
+                $q->where('path', $request->path);
+            });
+        }
+
+        // Filter berdasarkan element karakter
+        if ($request->filled('element')) {
+            $query->whereHas('character', function ($q) use ($request) {
+                $q->where('element', $request->element);
+            });
+        }
+
+        // Filter berdasarkan rarity karakter
+        if ($request->filled('rarity')) {
+            $query->whereHas('character', function ($q) use ($request) {
+                $q->where('rarity', $request->rarity);
+            });
+        }
+
+        // Sorting builds berdasarkan rarity karakter (5 dulu, kemudian 4) dan terbaru
+        $builds = $query->join('characters', 'builds.character_id', '=', 'characters.id')
+                       ->orderBy('characters.rarity', 'desc')
+                       ->orderBy('builds.created_at', 'desc')
+                       ->select('builds.*')
+                       ->get();
+
+        // Ambil characters yang sesuai dengan filter untuk ditampilkan
+        $characterQuery = Character::whereIn('id', Build::pluck('character_id'));
+
+        if ($request->filled('path')) {
+            $characterQuery->where('path', $request->path);
+        }
+
+        if ($request->filled('element')) {
+            $characterQuery->where('element', $request->element);
+        }
+
+        if ($request->filled('rarity')) {
+            $characterQuery->where('rarity', $request->rarity);
+        }
+
+        $characters = $characterQuery->orderBy('rarity', 'desc')
+                                   ->orderBy('name', 'asc')
+                                   ->get();
+
         return view('builds.index', compact('builds', 'characters'));
     }
 
@@ -28,10 +75,11 @@ class BuildController extends Controller
 
     public function create()
     {
-        $characters = Character::all();
-        $lightcones = Lightcone::all();
-        $relics = Relic::where('type', 'relic')->get();
-        $planarOrnaments = Relic::where('type', 'planar')->get();
+        // Sorting data untuk form create
+        $characters = Character::orderBy('rarity', 'desc')->orderBy('name', 'asc')->get();
+        $lightcones = Lightcone::orderBy('rarity', 'desc')->orderBy('name', 'asc')->get();
+        $relics = Relic::where('type', 'relic')->orderBy('name', 'asc')->get();
+        $planarOrnaments = Relic::where('type', 'planar')->orderBy('name', 'asc')->get();
 
         return view('builds.create', compact('characters', 'lightcones', 'relics', 'planarOrnaments'));
     }
@@ -71,10 +119,11 @@ class BuildController extends Controller
 
     public function edit(Build $build)
     {
-        $characters = Character::all();
-        $lightcones = Lightcone::all();
-        $relics = Relic::where('type', 'relic')->get();
-        $planarOrnaments = Relic::where('type', 'planar')->get();
+        // Sorting data untuk form edit
+        $characters = Character::orderBy('rarity', 'desc')->orderBy('name', 'asc')->get();
+        $lightcones = Lightcone::orderBy('rarity', 'desc')->orderBy('name', 'asc')->get();
+        $relics = Relic::where('type', 'relic')->orderBy('name', 'asc')->get();
+        $planarOrnaments = Relic::where('type', 'planar')->orderBy('name', 'asc')->get();
 
         return view('builds.edit', compact('build', 'characters', 'lightcones', 'relics', 'planarOrnaments'));
     }
@@ -135,5 +184,4 @@ class BuildController extends Controller
 
         return redirect()->back()->with('success', 'Komentar berhasil dikirim!');
     }
-
 }
